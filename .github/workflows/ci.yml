@@ -156,13 +156,6 @@ jobs:
             output
           retention-days: 7
 
-      - name: Upload to WeTransfer
-        run: |
-          curl -fsSL git.io/file-transfer | sh
-          wetrans=$(./transfer wet -s -p 16 --no-progress ${{ steps.var.outputs.filename }}.zip)
-          wetrans=$(echo $wetrans | grep -o -E "https[^ ]*")
-          echo "WeTransfer: $wetrans"
-
       - name: Upload to Release
         if: github.event.inputs.release == 'true'
         uses: softprops/action-gh-release@v1
