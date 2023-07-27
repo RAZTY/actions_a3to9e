@@ -54,12 +54,13 @@ jobs:
 
       - name: Extracting Payload 
         run: |
-          echo "Payload Extracting"
-          unzip ${{ steps.var.outputs.filename }}.zip
-          rm -rf ${{ steps.var.outputs.filename }}.zip
-          python3 update-payload-extractor/extract.py payload.bin --output_dir ./output/
-          rm -rf payload.bin META-INF apex_info.pb care_map.pb payload_properties.txt
-          ls output/
+         echo "Payload Extracting"
+         unzip ${{ steps.var.outputs.filename }}.zip
+         rm -rf ${{ steps.var.outputs.filename }}.zip
+         pip3 install protobuf==3.20.0
+         python3 update-payload-extractor/extract.py payload.bin --output_dir ./output/
+         rm -rf payload.bin META-INF apex_info.pb care_map.pb payload_properties.txt
+         ls output/
 
       - name: Patching fstabs
         run: |
